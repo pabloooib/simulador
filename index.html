@@ -1,1 +1,161 @@
+<!DOCTYPE html>
+<html lang="es-GT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador de Llamadas · PEI Derecho UPANA 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
+<div class="bg-texture" aria-hidden="true"></div>
+
+<!-- ======================= PANTALLA 1: SELECTOR DE ROL ======================= -->
+<main id="screen-select" class="screen screen-select">
+  <div class="select-wrap">
+    <header class="brand-eyebrow">
+      <span class="brand-mark">UP</span>
+      <div class="brand-text">
+        <p class="brand-kicker">Universidad Panamericana de Guatemala</p>
+        <p class="brand-sub">Facultad de Ciencias Jurídicas y Justicia</p>
+      </div>
+    </header>
+
+    <h1 class="select-title">Simulador de llamadas<br><em>Programa PEI 2026</em></h1>
+    <p class="select-desc">Practique una llamada telefónica real de admisiones para el Programa de Equivalencias Integrales. Elija de qué lado del teléfono quiere estar.</p>
+
+    <div class="role-grid">
+      <button class="role-card" data-role="agent" type="button">
+        <span class="role-tag">Modo A</span>
+        <span class="role-icon" aria-hidden="true">🎓</span>
+        <span class="role-name">Agente de Admisiones UPANA</span>
+        <span class="role-copy">Usted llama a preguntar por el PEI. La IA le atiende como asesor educativo: precios, sedes, requisitos.</span>
+        <span class="role-cta">Llamar a admisiones →</span>
+      </button>
+
+      <button class="role-card role-card--alt" data-role="client" type="button">
+        <span class="role-tag">Modo B</span>
+        <span class="role-icon" aria-hidden="true">📞</span>
+        <span class="role-name">Posible Cliente / Estudiante</span>
+        <span class="role-copy">Usted es el asesor de UPANA. Un estudiante interesado le llama con dudas — cada vez con una personalidad distinta.</span>
+        <span class="role-cta">Recibir llamada →</span>
+      </button>
+    </div>
+
+    <div class="voice-check">
+      <span id="voice-support-dot" class="dot"></span>
+      <span id="voice-support-text">Verificando soporte de voz del navegador…</span>
+    </div>
+  </div>
+</main>
+
+<!-- ======================= PANTALLA 2: LLAMANDO ======================= -->
+<section id="screen-ringing" class="screen screen-phone screen-ringing hidden">
+  <div class="phone-shell">
+    <div class="phone-notch"></div>
+    <div class="ringing-body">
+      <p class="call-kicker" id="ringing-kicker">Programa PEI · Ciencias Jurídicas</p>
+      <div class="avatar avatar--ringing" id="ringing-avatar">UP</div>
+      <h2 class="call-name" id="ringing-name">Admisiones UPANA</h2>
+      <p class="call-status pulse" id="ringing-status">Llamando…</p>
+      <div class="ring-dots"><span></span><span></span><span></span></div>
+    </div>
+    <div class="ringing-actions">
+      <button class="round-btn round-btn--decline" id="btn-decline" type="button" aria-label="Rechazar llamada">
+        <svg viewBox="0 0 24 24" width="26" height="26"><path fill="currentColor" d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.87-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.1a.996.996 0 0 1 0-1.41C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.69c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.11-.7-.28-.79-.75-1.68-1.38-2.66-1.87a.99.99 0 0 1-.56-.9v-3.1A16.7 16.7 0 0 0 12 9Z"/></svg>
+      </button>
+      <button class="round-btn round-btn--accept" id="btn-accept" type="button" aria-label="Contestar llamada">
+        <svg viewBox="0 0 24 24" width="26" height="26"><path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2Z"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PANTALLA 3: EN LLAMADA ======================= -->
+<section id="screen-call" class="screen screen-phone screen-call hidden">
+  <div class="phone-shell phone-shell--incall">
+
+    <!-- Encabezado de llamada -->
+    <div class="call-top">
+      <p class="call-kicker" id="call-kicker">Programa PEI · Ciencias Jurídicas</p>
+      <div class="avatar avatar--small" id="call-avatar">UP</div>
+      <h2 class="call-name-sm" id="call-name">Admisiones UPANA</h2>
+      <p class="call-status" id="call-status-line">En llamada · <span id="call-timer">00:00</span></p>
+    </div>
+
+    <!-- Onda / indicador de habla -->
+    <div class="waveform" id="waveform" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <p class="speak-indicator" id="speak-indicator">Escuchando el saludo…</p>
+
+    <!-- Botón central de hablar -->
+    <div class="mic-zone">
+      <button id="btn-talk" class="mic-btn" type="button" disabled>
+        <svg viewBox="0 0 24 24" width="30" height="30"><path fill="currentColor" d="M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2Z"/></svg>
+      </button>
+      <p class="mic-hint" id="mic-hint">Presione para hablar</p>
+    </div>
+
+    <!-- Controles inferiores -->
+    <div class="call-controls">
+      <button class="ctrl-btn" id="btn-mute" type="button">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63ZM19 12c0 .82-.15 1.6-.41 2.34l1.53 1.53A8.965 8.965 0 0 0 21 12h-2Zm-1.98 8.02L15 18l-1.99 1.98L11 19.96l-1.5-1.5L7 20l-1.5-1.5L4 20l-.71-.71L4.71 18l14.6 14.6-.01.01ZM4.27 3 3 4.27l6.02 6.02V12c0 1.66 1.34 3 3 3 .23 0 .45-.03.66-.08l1.66 1.66c-.71.34-1.5.53-2.32.53-2.76 0-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-2.08c.91-.13 1.76-.44 2.53-.88L18.73 21 20 19.73 4.27 3Z"/></svg>
+        <span>Silenciar</span>
+      </button>
+      <button class="round-btn round-btn--hangup" id="btn-hangup" type="button" aria-label="Colgar llamada">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.87-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.1a.996.996 0 0 1 0-1.41C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.69c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.11-.7-.28-.79-.75-1.68-1.38-2.66-1.87a.99.99 0 0 1-.56-.9v-3.1A16.7 16.7 0 0 0 12 9Z"/></svg>
+      </button>
+      <button class="ctrl-btn" id="btn-speaker" type="button">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 10v4h4l5 5V5L7 10H3Zm13.5 2A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02ZM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77Z"/></svg>
+        <span>Altavoz</span>
+      </button>
+    </div>
+
+    <button class="drawer-toggle" id="btn-drawer" type="button" aria-expanded="false" aria-controls="transcript-drawer">
+      <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M4 6h16v2H4zm0 5h16v2H4zm0 5h10v2H4z"/></svg>
+      Ficha del caso y transcripción
+    </button>
+  </div>
+
+  <!-- Panel lateral: ficha del caso + transcripción -->
+  <aside id="transcript-drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <div>
+        <p class="drawer-eyebrow">Ficha del caso</p>
+        <h3 id="drawer-title">Llamada en curso</h3>
+      </div>
+      <button id="btn-drawer-close" class="drawer-close" type="button" aria-label="Cerrar panel">✕</button>
+    </div>
+
+    <dl class="case-facts" id="case-facts">
+      <!-- se llena por JS -->
+    </dl>
+
+    <div class="drawer-divider"></div>
+
+    <p class="drawer-eyebrow">Transcripción en tiempo real</p>
+    <div class="transcript" id="transcript" aria-live="polite"></div>
+  </aside>
+</section>
+
+<!-- ======================= PANTALLA 4: LLAMADA FINALIZADA ======================= -->
+<section id="screen-end" class="screen screen-select screen-end hidden">
+  <div class="select-wrap">
+    <div class="end-badge">Llamada finalizada</div>
+    <h1 class="select-title">Duración: <em id="end-duration">00:00</em></h1>
+    <p class="select-desc">Puede revisar la transcripción completa antes de iniciar una nueva simulación.</p>
+    <div class="transcript transcript--summary" id="transcript-summary"></div>
+    <div class="role-grid role-grid--end">
+      <button class="role-cta-btn" id="btn-restart" type="button">Nueva llamada</button>
+    </div>
+  </div>
+</section>
+
+<script src="knowledge-base.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
